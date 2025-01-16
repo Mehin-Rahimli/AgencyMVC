@@ -1,0 +1,64 @@
+﻿@model List<GetProjectVM>
+@{
+    int count = 0;
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <a class="card-body">
+                <h4 class="card-title">Project Table</h4>
+                <p @Html.Raw(TempData["FileWarning"])></p>
+                <a asp-action="Create"><h3>Create Project</h3></a>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    No
+                                </th>
+                                <th>
+                                    Name
+                                </th>       
+                                <th>
+                                    Category Name
+                                </th>
+                                <th>
+                                    image
+                                </th>
+                                <th>
+                                    Settings
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (GetProjectVM projectVM in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td>
+                                        @count
+                                    </td>
+                                    <td>
+                                        @projectVM.Name
+                                    </td>
+                                    <td>
+                                        @projectVM.CategoryName
+                                    </td>
+                                    <td>
+                                        <img src="~/assets/img/portfolio/@projectVM.Image" />
+                                    </td>
+                                    <td>
+                                        <a asp-action="update" asp-route-id="@projectVM.Id"><i class="mdi mdi-grease-pencil"></i></a>
+                                        <a asp-action="delete" asp-route-id="@projectVM.Id"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
