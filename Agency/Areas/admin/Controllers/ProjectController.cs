@@ -67,16 +67,16 @@ namespace Agency.Areas.admin.Controllers
             if(!result)
             {
                 ModelState.AddModelError((nameof(CreateProjectVM.CategoryId)), "Category does not exists");
-                return RedirectToAction("Index");
+                return View(projectVM);
             }
 
             string imagepath=await projectVM.Image.CreateFileAsync(_env.WebRootPath,"assets","img","portfolio");
 
-            Project project = new Project()
+            Project project = new()
             {
                 Name = projectVM.Name,
                 Image=imagepath,
-                CategoryId=projectVM.CategoryId
+                CategoryId=projectVM.CategoryId.Value
             };
 
             await _context.Projects.AddAsync(project);
@@ -94,8 +94,9 @@ namespace Agency.Areas.admin.Controllers
             UpdateProjectVM projectVM = new UpdateProjectVM
             {
                 Name = project.Name,
-                Id = project.Id,
+
                 CategoryId = project.CategoryId,
+                Categories=await _context.Categories.ToListAsync(),
                 ExistingImage = project.Image,
             };
             return View(projectVM);
@@ -145,7 +146,7 @@ namespace Agency.Areas.admin.Controllers
           await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        [HttpPost]
+
         public async Task<IActionResult>Delete(int id)
         {
             if (id < 1 || id == null) return BadRequest();

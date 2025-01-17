@@ -27,8 +27,11 @@
                     <input asp-for="IsPersistent" />
 
                 </div>
+                <button class="text-center mt-4 font-weight-light"> 
+                    Login
+                </button>
                 <div class="text-center mt-4 font-weight-light">
-                    Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                    Don't have an account? <a  class="text-primary"  asp-action="register" asp-controller="account">Register</a>
                 </div>
             </form>
         </div>

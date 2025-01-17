@@ -31,16 +31,16 @@ namespace Agency.Utilities.Extensions
             return false;
         }
 
-        public async static Task<string> CreateFileAsync(this IFormFile file,params string[] roots)
+        public static async Task<string> CreateFileAsync(this IFormFile file,params string[] roots)
         {
-            string filename=string.Concat(Guid.NewGuid().ToString(),file.FileName);
+            string filename = string.Concat(Guid.NewGuid().ToString(), file.FileName);//.Substring(file.FileName.LastIndexOf('.')));
             string path=string.Empty;
             
             for(int i = 0; i < roots.Length; i++)
             {
              path=Path.Combine(path,roots[i]);   
             }
-           path=Path.Combine(path,file.FileName);
+           path=Path.Combine(path,filename);
 
             using(FileStream fileStream=new (path,FileMode.Create))
             {

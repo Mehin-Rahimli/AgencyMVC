@@ -36,6 +36,37 @@
         </div>
     </div>
 </section>
+<!-- Login/Register-->
+<section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">My account</h2>
+            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        </div>
+        <div class="row">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+              <a class="text-danger">@User.Identity.Name</a>
+              </li>
+                <li>
+                    <a class="dropdown-item" asp-action="logout" asp-controller="account">Log out</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a asp-action="register" asp-controller="account">Register</a>
+                </li>
+                <li>
+                    <a asp-action="login" asp-controller="account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
+                </li>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Login/Register-->
 <!-- Portfolio Grid-->
 <section class="page-section bg-light" id="portfolio">
     <div class="container">
@@ -49,6 +80,7 @@
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <!-- Portfolio item 1-->
                     <div class="portfolio-item">
+                        <a asp-controller="home" asp-action="index" asp-route-id="@projects.Id"></a>
                         <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>

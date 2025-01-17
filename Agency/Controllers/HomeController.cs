@@ -19,30 +19,10 @@ namespace Agency.Controllers
             HomeVM homeVM = new HomeVM
             {
 
-                Employees=await _context.Employees.Include(e => e.Major).OrderByDescending(x => x.Id).Take(3).ToListAsync(),
-                Projects=await _context.Projects.Include(e => e.Category).OrderByDescending(x => x.Id).Take(3).ToListAsync(),
-                //Employees = await _context.Employees
-                //.Where(e => !e.IsDeleted)
-                //.Select(e => new Employee
-                //{
-                //    Name = e.Name,
-                //    Surname = e.Surname,
-                //    Image = e.Image,
-                //    Major = e.Major,
-                //    FacebookLink = e.FacebookLink,
-                //    TwitterLink = e.TwitterLink,
-                //    LindekInLink = e.LindekInLink
-                //}).ToListAsync(),
+                Employees=await _context.Employees.Include(e => e.Major).OrderByDescending(x => x.Id).Take(10).ToListAsync(),
+                Projects=await _context.Projects.Include(e => e.Category).OrderByDescending(x => x.Id).Take(10).ToListAsync(),
+              
 
-                //Projects=await _context.Projects
-                //.Where(e => !e.IsDeleted)
-                //.Select(p=>new Project
-                //{
-                //    Name=p.Name,
-                //    Image=p.Image,
-                //    Category = p.Category
-
-                //}).ToListAsync()
             };
             return View(homeVM);
         }

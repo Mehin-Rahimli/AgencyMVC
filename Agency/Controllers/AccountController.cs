@@ -53,7 +53,7 @@ namespace Agency.Controllers
 
             await _userManager.AddToRoleAsync(user, UserRole.Member.ToString());
             await _signInManager.SignInAsync(user, false);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(HomeController.Index),"Home");
         }
         public IActionResult Login()
         {
@@ -96,6 +96,19 @@ namespace Agency.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> CreateRoles()
+        {
+            foreach(UserRole role in Enum.GetValues(typeof(UserRole)))
+            {
+                if(!await _roleManager.RoleExistsAsync(role.ToString()))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString()});
+                
+                 }
+            }
+            return RedirectToAction(nameof(HomeController.Index),"Home");
         }
     }
 }
